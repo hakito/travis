@@ -87,7 +87,7 @@ set +H
 echo "CakePlugin::loadAll(array(array('bootstrap' => true, 'routes' => true, 'ignoreMissing' => true)));" >> Config/bootstrap.php
 
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<phpunit>
+<phpunit bootstrap=\"vendor/autoload.php\">
 <filter>
     <whitelist>
         <directory suffix=\".php\">Plugin/$PLUGIN_NAME</directory>
