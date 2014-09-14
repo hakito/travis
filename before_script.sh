@@ -96,6 +96,9 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
         </exclude>
     </whitelist>
 </filter>
+<logging>
+  <log type=\"junit\" target=\"/tmp/logfile.xml\" logIncompleteSkipped=\"false\"/>
+</logging>
 </phpunit>" > phpunit.xml
 
 echo "# for php-coveralls
