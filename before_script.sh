@@ -97,7 +97,7 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
     </whitelist>
 </filter>
 <logging>
-  <log type=\"junit\" target=\"/tmp/logfile.xml\" logIncompleteSkipped=\"false\"/>
+  <log type=\"junit\" target=\"tmp/logfile.xml\" logIncompleteSkipped=\"false\"/>
 </logging>
 </phpunit>" > phpunit.xml
 
