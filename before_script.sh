@@ -72,11 +72,11 @@ for dep in $REQUIRE; do
 done
 
 if [ "$COVERALLS" = '1' ]; then
-	composer require --dev satooshi/php-coveralls:dev-master
+	composer require --dev php-coveralls/php-coveralls=2.1.0
 fi
 
 if [ "$PHPCS" != '1' ]; then
-	composer global require 'phpunit/phpunit=3.7.33'
+	composer global require 'phpunit/phpunit=3.7.38'
 	ln -s ~/.composer/vendor/phpunit/phpunit/PHPUnit ./Vendor/PHPUnit
 fi
 
