@@ -1,4 +1,5 @@
 #!/bin/bash
+export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 if [ "$PHPCS" == 1 ]; then
     ARGS="-p --extensions=php --standard=CakePHP .";
