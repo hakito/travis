@@ -112,7 +112,18 @@ if [ "$PHPCS" != '1' ]; then
 	vercomp $PHP_VERSION 6.9
 	case $? in
        # 0) PHP_UNIT_VERSION;;
-        1) PHP_UNIT_VERSION='5.*';;
+        1) PHP_UNIT_VERSION='8.*'
+	   cat <<EOT >> ../cakephp/app/Config/bootstrap.php
+// Load Composer autoload.
+require APP . 'Vendor/autoload.php';
+
+// Remove and re-prepend CakePHP's autoloader as Composer thinks it is the
+// most important.
+// See: http://goo.gl/kKVJO7
+spl_autoload_unregister(array('App', 'load'));
+spl_autoload_register(array('App', 'load'), true, true);
+EOT
+	;;
         #2) op='<';;
     esac
 
