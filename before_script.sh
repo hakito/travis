@@ -109,10 +109,10 @@ fi
 if [ "$PHPCS" != '1' ]; then
     PHP_VERSION=$(php -v | head -n 1 | cut -d ' ' -f2)
 	PHP_UNIT_VERSION=3.7.38
-	vercomp $PHP_VERSION 7.2
+	vercomp $PHP_VERSION 6.9
 	case $? in
        # 0) PHP_UNIT_VERSION;;
-        1) PHP_UNIT_VERSION='8.*';;
+        1) PHP_UNIT_VERSION='5.*';;
         #2) op='<';;
     esac
 
