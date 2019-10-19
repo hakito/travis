@@ -37,6 +37,37 @@ latest_ref() {
 	fi
 }
 
+vercomp () {
+    if [[ $1 == $2 ]]
+    then
+        return 0
+    fi
+    local IFS=.
+    local i ver1=($1) ver2=($2)
+    # fill empty fields in ver1 with zeros
+    for ((i=${#ver1[@]}; i<${#ver2[@]}; i++))
+    do
+        ver1[i]=0
+    done
+    for ((i=0; i<${#ver1[@]}; i++))
+    do
+        if [[ -z ${ver2[i]} ]]
+        then
+            # fill empty fields in ver2 with zeros
+            ver2[i]=0
+        fi
+        if ((10#${ver1[i]} > 10#${ver2[i]}))
+        then
+            return 1
+        fi
+        if ((10#${ver1[i]} < 10#${ver2[i]}))
+        then
+            return 2
+        fi
+    done
+    return 0
+}
+
 if [ "$DB" = "mysql" ]; then mysql -e 'CREATE DATABASE cakephp_test;'; fi
 if [ "$DB" = "pgsql" ]; then psql -c 'CREATE DATABASE cakephp_test;' -U postgres; fi
 
@@ -76,7 +107,16 @@ if [ "$COVERALLS" = '1' ]; then
 fi
 
 if [ "$PHPCS" != '1' ]; then
-	composer global require 'phpunit/phpunit=3.7.38'
+    PHP_VERSION=$(php -v | head -n 1 | cut -d ' ' -f2)
+	PHP_UNIT_VERSION=3.7.38
+	vercomp $PHP_VERSION 7.2
+	case $? in
+       # 0) PHP_UNIT_VERSION;;
+        1) PHP_UNIT_VERSION='8.*';;
+        #2) op='<';;
+    esac
+
+	composer global require "phpunit/phpunit=$PHP_UNIT_VERSION"
 	ln -s ~/.config/composer/vendor/phpunit/phpunit/PHPUnit ./Vendor/PHPUnit
 fi
 
